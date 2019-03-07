@@ -1,0 +1,40 @@
+<div class="Wrapper">
+  <div class="ScrollContainer">
+    <div class="Scroller">
+      <div class="Back">Stoppen</div>
+      <div class="Title">[[_title(journey)]]</div>
+      <div class="Subtitle">[[_subtitle(journey)]]</div>
+      <div class="SectionTitle">Benodigde documenten</div>
+      <div class="DotList">
+        <dom-repeat items="[[_documents(journey)]]">
+          <template>
+            <div class="DotListItem">
+              <div class="Dot"></div>
+              <div class="Text">[[item]]</div>
+            </div>
+          </template>
+        </dom-repeat>
+      </div>
+      <div class="SectionTitle">Deze stappen ga je doorlopen</div>
+      <div class="NumberedList">
+        <dom-repeat items="[[_steps(journey)]]">
+          <template>
+            <div class="NumberedListItem">
+              <div class="Number">[[_indexToCount(index)]]</div>
+              <div class="Text">[[item]]</div>
+            </div>
+          </template>
+        </dom-repeat>
+      </div>
+    </div>
+  </div>
+  <div class="ButtonContainer">
+    <maki-button highlight size="56" font-size="18" on-click="[[_start(journey)]]">
+      <div class="ButtonInner">
+        <div class="ButtonInnerLeft"><</div>
+        <div class="ButtonInnerText">Starten</div>
+        <div class="ButtonInnerRight">></div>
+      </div>
+    </maki-button>
+  </div>
+</div>

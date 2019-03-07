@@ -1,0 +1,108 @@
+:host {
+  font-size: var(--typography-fontSize);
+}
+.Icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+}
+.Icon ::slotted(svg) {
+  --icon-color: var(--shaded-icon-main);
+}
+.Icon.iconLeft {
+  float: left;
+}
+.Icon.iconRight {
+  float: right;
+}
+.DropDown {
+  margin: 0;
+  padding: 0.84em 0.84em calc(0.84em - 2px) 0.84em;
+  width: calc(100% - 1.68em);
+  min-height: 1.3em;
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  font-size: 1.3em;
+  line-height: 1.28;
+  color: var(--shaded-color-main);
+  cursor: pointer;
+}
+.DropDown.placeholder {
+  opacity: 0.6;
+  font-style: italic;
+  color: var(--shaded-color-main);
+}
+.DropDownOpenBackDrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+}
+.DropDownList {
+  position: fixed;
+  padding: 5px 0 5px 0;
+  background-color: white;
+  border: 1px solid #EFF1F3;
+  border-radius: 2px;
+  top: var(--popup-pos-top);
+  width: var(--popup-pos-width);
+  left: var(--popup-pos-left);
+  box-shadow: var(--shadows-5);
+  z-index: 11;
+}
+.DropDownOption {
+  padding: 0.64em 0.84em calc(0.64em - 2px) 0.84em;
+  border-top: 1px solid #EFF1F3;
+  width: calc(100% - 1.68em);
+  min-height: 1.3em;
+  background-color: transparent;
+  outline: none;
+  font-size: 1.3em;
+  line-height: 1.28;
+  color: var(--shaded-color-main);
+  float: left;
+}
+.DropDownOption:first-child {
+  border-top: none;
+}
+.DropDownOption.isFunction {
+  color: var(--palette-secondary-main);
+  font-style: italic;
+}
+.DropDownOption:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.Highlight {
+  height: 2px;
+  width: 100%;
+  position: relative;
+}
+.HighlightHover {
+  width: 100%;
+  height: 1px;
+  background-color: var(--shaded-accent-main);
+  opacity: 0;
+  transition: opacity var(--transitions-duration-shorter)
+    var(--transitions-easing-easeInOut);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.HighlightAlways {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: var(--shaded-accent-main);
+  opacity: 0.5;
+}
+.Wrapper:hover .HighlightHover {
+  opacity: 0.5;
+}

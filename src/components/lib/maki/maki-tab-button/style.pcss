@@ -1,0 +1,42 @@
+.Tab {
+  float: left;
+  height: 1.3em;
+  font-family: var(--typography-fontFamily);
+  font-size: var(--typography-fontSize);
+  font-weight: var(--typography-fontWeightMedium);
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.3em;
+  letter-spacing: -0.2px;
+  color: var(--palette-primary-dark);
+  padding: 6px 30px 5px 30px;
+  border: 1px solid var(--palette-primary-light);
+  border-left: none;
+  cursor: pointer;
+}
+:host(:first-child) .Tab {
+  border-left: 1px solid var(--palette-primary-light);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+:host(:last-child) .Tab {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.Tab:hover {
+  background-color: var(--palette-action-hover);
+}
+.Tab.selected,
+.Tab.selected:hover {
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-left: -1px;
+  background-color: var(--palette-primary-main);
+  color: var(--palette-primary-contrastText);
+  border-color: var(--palette-primary-main);
+}
+:host(:first-child) .Tab.selected,
+:host(:first-child) .Tab.selected:hover {
+  padding-left: 34px;
+  margin-left: 0;
+}

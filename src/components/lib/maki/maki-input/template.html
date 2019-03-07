@@ -1,0 +1,31 @@
+<maki-shaded-paper
+  accent-disabled="[[accentDisabled]]"
+  accent-error="[[accentError]]"
+  accent-primary="[[accentPrimary]]"
+  accent-secondary="[[accentSecondary]]"
+  disabled="[[disabled]]"
+  error="[[error]]"
+  fill="[[fill]]"
+  icon-disabled="[[iconDisabled]]"
+  icon-error="[[iconError]]"
+  icon-primary="[[iconPrimary]]"
+  icon-secondary="[[iconSecondary]]"
+  primary="[[primary]]"
+  secondary="[[secondary]]"
+  transparent="[[transparent]]"
+  elevation="[[elevation]]"
+  rounding="[[rounding]]"
+  stroke="[[stroke]]"
+>
+  <div class="Wrapper">
+    <div class$="Icon[[_hasIconLeft(iconLeft)]][[_hasIconRight(iconRight)]]">
+      <slot></slot>
+    </div>
+    <input class$="Input[[_hasIconLeft(iconLeft)]][[_hasIconRight(iconRight)]]" placeholder="[[placeholder]]" type="[[type]]" on-input="_onInput" value="{{value}}"></input>
+    <div class$="Highlight[[_isFocussed(focussed)]]">
+      <div class="HighlightAlways"></div>
+      <div class="HighlightHover"></div>
+      <div class="HighlightExpander"></div>
+    </div>
+  </div>
+</maki-shaded-paper>

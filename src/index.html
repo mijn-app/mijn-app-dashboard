@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Dé app die digitale dienstverlening makkelijker, veiliger en overzichtelijker maakt.">
+
+  <title>Mijn Portaal</title>
+
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- See https://goo.gl/qRE0vM -->
+  <meta name="theme-color" content="#19224c">
+
+  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Mijn Portaal">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Mijn Portaal">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/icon-51x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon32x32.ico">
+
+  <!-- Manifest for Windows -->
+  <meta name="msapplication-config" content="/assets/icons/browserconfig.xml">
+
+  <!-- Default twitter cards -->
+  <meta name="twitter:card" content="summary">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mijn Portaal">
+  <meta property="og:image" content="/assets/icons/icon-192x192.png" />
+
+	<style>
+		@import url('/assets/fonts/stylesheet.css');
+
+    html {
+      font-size: calc(100% + 4 * (100vw - 600px) / 400);
+    }
+
+    body {
+      font-family: 'HK Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+      line-height: 1.25;
+      background-color: #f9f9fa;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 0;
+      height: 100%;
+    }
+
+    .Loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+
+  <script>
+    // Bunch of service worker stuff
+    // (function () {
+    //   if (!('serviceWorker' in navigator)) {
+    //
+    //     return;
+    //   }
+    //
+    //   navigator.serviceWorker.register('/sw.js')
+    //     .then(function (registration) {
+    //       registration.onupdatefound = function () {
+    //         if (navigator.serviceWorker.controller) {
+    //           var installingWorker = registration.installing;
+    //           installingWorker.onstatechange = function () {
+    //             switch (installingWorker.state) {
+    //               case 'installed':
+    //                 break;
+    //               case 'redundant':
+    //                 throw new Error('The installing ' +
+    //                   'service worker became redundant.');
+    //               default:
+    //               // Ignore
+    //             }
+    //           };
+    //         }
+    //       };
+    //     }).catch(function (e) {
+    //       console.error('Error during service worker registration:', e);
+    //     });
+    // })();
+
+
+    document.addEventListener('WebComponentsReady', function componentsReady() {
+      document.removeEventListener('WebComponentsReady', componentsReady, false);
+
+      var script = document.createElement('script');
+      script.async = true
+      script.src = '<%= htmlWebpackPlugin.files.chunks["main"].entry %>';
+
+      var refScript = document.body.getElementsByTagName('script')[0];
+      refScript.parentNode.insertBefore(script, refScript);
+    }, false);
+  </script>
+</head>
+
+<body>
+  <mad-app>
+    <div class="Loader">Loading...</div>
+  </mad-app>
+
+  <script defer src="<%= htmlWebpackPlugin.options.paths.webcomponents %>"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+:host {
+  font-size: var(--typography-fontSize);
+}
+.Icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+}
+.Icon ::slotted(svg) {
+  --icon-color: var(--shaded-icon-main);
+}
+.Icon.iconLeft {
+  float: left;
+}
+.Icon.iconRight {
+  float: right;
+}
+.Input {
+  margin: 0;
+  padding: 0.84em 0.84em calc(0.84em - 2px) 0.84em;
+  width: calc(100% - 1.68em);
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  font-size: 1.3em;
+  line-height: 1.28;
+  color: var(--shaded-color-main);
+}
+.Input:focus {
+  outline: none;
+}
+.Input::placeholder {
+  opacity: 0.6;
+  color: var(--shaded-color-main);
+  font-style: italic;
+}
+.Highlight {
+  height: 2px;
+  width: 100%;
+  position: relative;
+}
+.HighlightExpander {
+  width: 100%;
+  height: 2px;
+  transform: scale(0, 1);
+  background-color: var(--shaded-accent-main);
+  transition: transform var(--transitions-duration-shorter)
+    var(--transitions-easing-easeOut);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.HighlightHover {
+  width: 100%;
+  height: 1px;
+  background-color: var(--shaded-accent-main);
+  opacity: 0;
+  transition: opacity var(--transitions-duration-shorter)
+    var(--transitions-easing-easeInOut);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.HighlightAlways {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: var(--shaded-accent-main);
+  opacity: 0.5;
+}
+.Wrapper:hover .HighlightHover {
+  opacity: 0.5;
+}
+.Highlight.focussed .HighlightExpander {
+  transform: scale(1, 1);
+}

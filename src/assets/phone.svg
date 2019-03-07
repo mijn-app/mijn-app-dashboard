@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="343" height="662" viewBox="0 0 343 662">
+    <defs>
+        <filter id="a" width="106%" height="103.1%" x="-3%" y="-1.2%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="3"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.141176471 0 0 0 0 0.239215686 0 0 0 0 0.333333333 0 0 0 0.14 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="c" x1="50%" x2="50%" y1="50%" y2="100%">
+            <stop offset="0%" stop-color="#FFF"/>
+            <stop offset="100%" stop-color="#FAFBFC"/>
+        </linearGradient>
+        <rect id="b" width="330.571" height="650" rx="47.418"/>
+        <linearGradient id="d" x1="50%" x2="50%" y1="10.496%" y2="100%">
+            <stop offset="0%" stop-color="#1B344A" stop-opacity=".08"/>
+            <stop offset="100%" stop-color="#1B344A" stop-opacity=".12"/>
+        </linearGradient>
+        <filter id="e" width="117.5%" height="108.1%" x="-8.7%" y="-4%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5.328"/>
+        </filter>
+        <rect id="g" width="291.181" height="510.41" rx="1.066"/>
+        <path id="i" d="M0 0h291.571v518.608H0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#a)" transform="translate(6 4)">
+        <mask id="f" fill="#fff">
+            <use xlink:href="#b"/>
+        </mask>
+        <use fill="url(#c)" xlink:href="#b"/>
+        <path fill="url(#c)" stroke="url(#d)" stroke-width="28.77" d="M-9.377-52.506a46.653 46.653 0 0 1 46.784-47.408h254.148c26.188 0 47.18 21.235 46.886 47.408l-7.338 655.098c-.294 26.183-21.76 47.408-47.95 47.408H47.419C21.23 650-.283 628.765-.632 602.592L-9.378-52.506z" filter="url(#e)" mask="url(#f)" opacity=".2"/>
+        <g mask="url(#f)">
+            <g transform="translate(19.696 68.197)">
+                <mask id="h" fill="#fff">
+                    <use xlink:href="#g"/>
+                </mask>
+                <rect width="293.313" height="512.541" x="-1.066" y="-1.066" stroke="#D5DDE4" stroke-width="2.131" rx="1.066"/>
+                <g mask="url(#h)">
+                    <use fill="#000" transform="translate(-.196 -.411)" xlink:href="#i"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

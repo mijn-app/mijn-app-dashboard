@@ -1,0 +1,677 @@
+<mad-main heading="[[_title(journey)]]" sub-heading="[[_subtitle(journey)]]" back-text="Terug naar overzicht klantvragen" back="[[_backToJourneys]]">
+  <div slot="buttons">
+    <!-- Buttons here -->
+    <maki-button heading="Klantvraag afspelen" highlight on-click="[[_setPagePlayback]]">
+      <maki-icon-play></maki-icon-play>
+    </maki-button>
+  </div>
+  <div slot="content">
+    <mad-editor></mad-editor>
+    <div class="BottomLeftButtons">
+      <maki-button on-click="_toggleInfoOpen" white size="32" font-size="13">
+        Info bewerken
+      </maki-button>
+      <!-- <maki-button white size="32" font-size="13">
+        Check voor open eindes
+      </maki-button> -->
+    </div>
+    <dom-if if="[[sidePanelOpen]]">
+      <template>
+        <div class="SidePanelWrapper">
+          <div class="SidePanelInner">
+            <div class="SidePanelScroller">
+              <dom-if if="[[_isNotStart(selectedQuestionId)]]">
+                <template>
+                  <div class="SidePanelSection">
+                    <div class="SidePanelSectionTitle">
+                      Module
+                    </div>
+                    <div class="SidePanelButtonPicker">
+                      [[_getCurrentQuestionType(selectedQuestionId, journey)]]
+                      <div class="SidePanelButtonPickerButtonWrapper">
+                        <maki-button highlight on-click="_toggleModulesOpen">Kiezen</maki-button>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </dom-if>
+              <div class="SidePanelSection">
+                <div class="SidePanelSectionTitle">
+                  Naam
+                </div>
+                <div class="SidePanelInputField">
+                  <maki-input elevation="0" stroke="1" input-callback="[[_changeModuleTitle]]" value="[[_getModuleTitle(selectedQuestionId, journey)]]" placeholder="Naamloze vraag"></maki-input>
+                </div>
+                <div class="SidePanelSectionTitle">
+                  Subtitel
+                </div>
+                <div class="SidePanelInputField">
+                  <maki-input elevation="0" stroke="1" input-callback="[[_changeModuleSubtitle]]" value="[[_getModuleSubtitle(selectedQuestionId, journey)]]" placeholder="Geen subtitel"></maki-input>
+                </div>
+                <dom-if if="[[_isNotStart(selectedQuestionId)]]">
+                  <template>
+                    <dom-if if="[[_getShouldShowRootKey(selectedQuestionId, journey)]]">
+                      <template>
+                        <div class="SidePanelSectionTitle">
+                          Sleutelnaam (optioneel)
+                        </div>
+                        <div class="SidePanelInputField">
+                          <maki-input elevation="0" stroke="1" input-callback="[[_changeModuleKey]]" value="[[_getModuleKey(selectedQuestionId, journey)]]" placeholder="[[_getModuleTitle(selectedQuestionId, journey, 'Naamloze vraag')]]"></maki-input>
+                        </div>
+                      </template>
+                    </dom-if>
+                  </template>
+                </dom-if>
+              </div>
+              <dom-if if="[[_isNotStart(selectedQuestionId)]]">
+                <template>
+                  <div class="SidePanelSection">
+                    <dom-if if="[[_ifAllowNext(selectedQuestionId, journey)]]">
+                      <template>
+                        <div class="SidePanelSectionTitle">
+                          Volgende
+                        </div>
+                        <div class="SidePanelInputField">
+                          <maki-drop-down elevation="0" stroke="1" selected="[[_getNext(selectedQuestionId, journey)]]" items="[[_dropDownQuestionItemsNext(journey, selectedQuestionId)]]" names="[[_dropDownQuestionNames(journey)]]" select-callback="[[_attachNext(selectedQuestionId)]]"></maki-drop-down>
+                        </div>
+                      </template>
+                    </dom-if>
+                    <dom-if if="[[_isEnd(selectedQuestionId, journey)]]">
+                      <template>
+                        <div class="SidePanelSectionTitle">
+                          Einde
+                        </div>
+                        <div class="SidePanelButtonPicker">
+                          Verbonden met een einde
+                          <div class="SidePanelButtonPickerButtonWrapper">
+                            <maki-button white heading="Verwijder einde" text-color-highlight on-click="_deleteNextEnd">
+                              <maki-icon-large-cross></maki-icon-large-cross>
+                            </maki-button>
+                          </div>
+                        </div>
+                      </template>
+                    </dom-if>
+                    <div class="SidePanelSectionTitle">
+                      Overslaan
+                    </div>
+                    <div class="SidePanelInputField">
+                      <maki-drop-down elevation="0" stroke="1" selected="[[_getSkip(selectedQuestionId, journey)]]" items="[[_dropDownQuestionItemsSkip(journey, selectedQuestionId)]]" names="[[_dropDownQuestionNamesWithEmpty(journey)]]" select-callback="[[_attachSkip(selectedQuestionId)]]" placeholder="Mag niet worden overgeslagen"></maki-drop-down>
+                    </div>
+                  </div>
+                </template>
+              </dom-if>
+              <dom-if if="[[_getShouldShowOptions(selectedQuestionId, journey)]]">
+                <template>
+                  <div class="SidePanelSection">
+                    <div class="SidePanelSectionTitle">
+                      Opties instellen
+                    </div>
+                    <div class="SidePanelOptions">
+                      <dom-repeat items="[[_getOptions(selectedQuestionId, journey)]]">
+                        <template>
+                          <div class="SidePanelOptionWrapper">
+                            <div class="SidePanelOptionContent SidePanelOptionsLeft">
+                              <div class="SidePanelOptionTitle">
+                                [[_optionTitle(item.title)]]
+                              </div>
+                              <div class="SidePanelOptionFields">
+                                <dom-if if="[[_ifAllowOptionsGoto(selectedQuestionId, journey)]]">
+                                  <template>
+                                    <div class="SidePanelOptionField SidePanelOptionFieldLink">
+                                      <div class="SidePanelOptionFieldLabel">
+                                        Volgende:
+                                      </div>
+                                      <div class="SidePanelOptionFieldValue SidePanelOptionFieldValueClickable" on-click="_selectQuestionWithTarget" data-target="[[item.goto]]">
+                                        [[_getModuleTitle(item.goto, journey, 'Naamloze vraag')]]
+                                      </div>
+                                    </div>
+                                  </template>
+                                </dom-if>
+                                <div class="SidePanelOptionField">
+                                  <dom-if if="[[_getShouldShowRootKey(selectedQuestionId, journey)]]">
+                                    <template>
+                                      <div class="SidePanelOptionFieldLabel">Waarde:</div>
+                                    </template>
+                                  </dom-if>
+                                  <dom-if if="[[_getShouldShowOptionsKey(selectedQuestionId, journey)]]">
+                                    <template>
+                                      <div class="SidePanelOptionFieldLabel">Sleutelnaam:</div>
+                                    </template>
+                                  </dom-if>
+                                  <div class="SidePanelOptionFieldValue SidePanelOptionFieldValueCode">
+                                    [[_optionTitle(item.value, item.title)]]
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="SidePanelOptionSelector SidePanelOptionsRight">
+                              <maki-button white small icon-color-main heading="Aanpassen" on-click="[[_editOption(index)]]">
+                                <maki-icon-edit></maki-icon-edit>
+                              </maki-button>
+                            </div>
+                          </div>
+                        </template>
+                      </dom-repeat>
+                    </div>
+                    <div class="SidePanelOptionsButtonWrapper">
+                      <maki-button elevation="0" stroke="0" size="18" heading="&nbsp;Optie toevoegen" white text-color-highlight on-click="_addOption">
+                        <maki-icon-add></maki-icon-add>
+                      </maki-button>
+                    </div>
+                  </div>
+                </template>
+              </dom-if>
+              <dom-if if="[[_isStart(selectedQuestionId)]]">
+                <template>
+                  <div class="SidePanelSection">
+                    <div class="SidePanelSectionTitle">
+                      Benodigde documenten
+                    </div>
+                    <div class="SidePanelOptions">
+                      <dom-repeat items="[[_getNeededDocuments(journey)]]">
+                        <template>
+                          <div class="SidePanelOptionWrapper">
+                            <div class="SidePanelOptionContent SidePanelOptionsLeft">
+                              <div class="SidePanelOptionTitle">
+                                [[_itemNameWrap(item)]]
+                              </div>
+                            </div>
+                            <div class="SidePanelOptionSelector SidePanelOptionsRight">
+                              <maki-button white small icon-color-main heading="Aanpassen" on-click="[[_editDocument(index)]]">
+                                <maki-icon-edit></maki-icon-edit>
+                              </maki-button>
+                            </div>
+                          </div>
+                        </template>
+                      </dom-repeat>
+                    </div>
+                    <div class="SidePanelOptionsButtonWrapper">
+                      <maki-button elevation="0" stroke="0" size="18" heading="&nbsp;Optie toevoegen" white text-color-highlight on-click="[[_addDocument(journey)]]">
+                        <maki-icon-add></maki-icon-add>
+                      </maki-button>
+                    </div>
+                  </div>
+                  <div class="SidePanelSection">
+                    <div class="SidePanelSectionTitle">
+                      Stappen
+                    </div>
+                    <div class="SidePanelOptions">
+                      <dom-repeat items="[[_getSteps(journey)]]">
+                        <template>
+                          <div class="SidePanelOptionWrapper">
+                            <div class="SidePanelOptionContent SidePanelOptionsLeft">
+                              <div class="SidePanelOptionTitle">
+                                [[_itemNameWrap(item)]]
+                              </div>
+                            </div>
+                            <div class="SidePanelOptionSelector SidePanelOptionsRight">
+                              <maki-button white small icon-color-main heading="Aanpassen" on-click="[[_editStep(index)]]">
+                                <maki-icon-edit></maki-icon-edit>
+                              </maki-button>
+                            </div>
+                          </div>
+                        </template>
+                      </dom-repeat>
+                    </div>
+                    <div class="SidePanelOptionsButtonWrapper">
+                      <maki-button elevation="0" stroke="0" size="18" heading="&nbsp;Optie toevoegen" white text-color-highlight on-click="[[_addStep(journey)]]">
+                        <maki-icon-add></maki-icon-add>
+                      </maki-button>
+                    </div>
+                  </div>
+                </template>
+              </dom-if>
+              <div class="SidePanelBottomButtonWrapper">
+                <maki-button on-click="_closeSidePanel">Sluiten</maki-button>
+              </div>
+              <div class="SidePanelBottomButtonWrapperRight">
+                <maki-button white heading="Verwijderen" text-color-highlight on-click="_requestDelete">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </maki-button>
+              </div>
+            </div>
+          </div>
+          <div class="SidePanelNumber">
+            [[selectedQuestionNumber]]
+          </div>
+        </div>
+      </template>
+    </dom-if>
+
+    <!-- Edit info dialog start -->
+    <dom-if if="[[infoOpen]]">
+      <template>
+        <div class="PopUpWrapper">
+          <div class="PopUpBackdrop" on-click="_toggleInfoOpen"></div>
+          <div class="InfoEditor PopUp">
+            <maki-shaded-paper>
+              <div class="InfoEditorContent">
+                <div class="InfoEditorHeader">Informatie bewerken</div>
+                <div class="InfoEditorLabel">Naam</div>
+                <maki-input elevation="0" stroke="1" input-callback="[[_changeTitle]]" value="{{titleValue}}" placeholder="Naamloze klantvraag"></maki-input>
+                <div class="InfoEditorCloseButton" on-click="_toggleInfoOpen">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+    <!-- Edit info dialog end -->
+
+    <!-- Delete dialog start -->
+    <dom-if if="[[deleteDialogOpen]]">
+      <template>
+        <div class="PopUpWrapper">
+          <div class="PopUpBackdrop" on-click="_closeDeleteDialog"></div>
+          <div class="DeleteDialog PopUp">
+            <maki-shaded-paper>
+              <div class="DeleteDialogContent">
+                <div class="DeleteDialogHeader">Item verwijderen</div>
+                <dom-if if="[[_selectMatches(deleteDialog.mode, 'START')]]">
+                  <template>
+                    <div class="DeleteDialogBody">U kunt het overzicht niet verwijderen.</div>
+                  </template>
+                </dom-if>
+                <dom-if if="[[_selectNotMatches(deleteDialog.mode, 'START')]]">
+                  <template>
+                    <div class="DeleteDialogBody">Weet u zeker dit item wilt verwijderen?</div>
+                  </template>
+                </dom-if>
+                <dom-if if="[[_selectMatches(deleteDialog.mode, 'MANUAL')]]">
+                  <template>
+                    <div class="DeleteDialogLabel">Doorverwijzen naar</div>
+                    <maki-drop-down elevation="0" stroke="1" selected="[[deleteDialog.resolver]]" items="[[deleteDialog.resolvers]]" names="[[_resolverNames(deleteDialog.resolvers, journey)]]" select-callback="[[_setResolver]]"></maki-drop-down>
+                    <div class="DeleteDialogBody">Deze vraag bevat meerdere verwijzingen. Selecteer de verwijzing die u wilt behouden.</div>
+                  </template>
+                </dom-if>
+                <div class="DeleteDialogButtons">
+                  <maki-button on-click="_closeDeleteDialog">
+                    Annuleren
+                  </maki-button>
+                  <maki-button disabled="[[_selectMatches(deleteDialog.mode, 'START')]]" highlight heading="Verwijderen" on-click="_deleteItem">
+                    <maki-icon-large-cross></maki-icon-large-cross>
+                  </maki-button>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+    <!-- Delete dialog end -->
+
+    <!-- Option edit dialog -->
+    <dom-if if="[[editOptionDialogOpen]]">
+      <template>
+        <div class="PopUpWrapper">
+          <div class="PopUpBackdrop" on-click="_closeEditOptionsDialog"></div>
+          <div class="EditOptionsDialog PopUp">
+            <maki-shaded-paper>
+              <div class="EditOptionsDialogContent">
+                <div class="EditOptionsDialogHeader">Optie bewerken</div>
+
+                <div class="EditOptionsDialogLabel">Naam</div>
+                <maki-input elevation="0" stroke="1" input-callback="[[_changeOptionTitle(selectedQuestionId, editOptionDialog)]]" value="[[_getOptionTitle(selectedQuestionId, journey, editOptionDialog)]]" placeholder="Naamloze optie"></maki-input>
+
+                <dom-if if="[[_ifAllowOptionsGoto(selectedQuestionId, journey)]]">
+                  <template>
+                    <div class="EditOptionsDialogLabel">Ga naar</div>
+                    <maki-drop-down elevation="0" stroke="1" placeholder="Maak een keuze..." items="[[_dropDownQuestionItems(journey, selectedQuestionId, editOptionDialog.selected)]]" names="[[_dropDownQuestionNames(journey)]]" selected="[[_getOptionGoto(selectedQuestionId, journey, editOptionDialog)]]" select-callback="[[_changeOptionGoto(selectedQuestionId, editOptionDialog)]]"></maki-drop-down>
+                  </template>
+                </dom-if>
+
+                <dom-if if="[[_getShouldShowRootKey(selectedQuestionId, journey)]]">
+                  <template>
+                    <div class="EditOptionsDialogLabel">Waarde (optioneel)</div>
+                  </template>
+                </dom-if>
+                <dom-if if="[[_getShouldShowOptionsKey(selectedQuestionId, journey)]]">
+                  <template>
+                    <div class="EditOptionsDialogLabel">Sleutelnaam (optioneel)</div>
+                  </template>
+                </dom-if>
+                <maki-input elevation="0" stroke="1" input-callback="[[_changeOptionValue(selectedQuestionId, editOptionDialog)]]" value="[[_getOptionValue(selectedQuestionId, journey, editOptionDialog)]]" placeholder="[[_getOptionValuePlaceholder(selectedQuestionId, journey, editOptionDialog)]]"></maki-input>
+
+                <div class="EditOptionsDialogButtons">
+                  <maki-button white text-color-highlight heading="Optie verwijderen" on-click="[[_deleteOption(selectedQuestionId, editOptionDialog)]]">
+                    <maki-icon-large-cross></maki-icon-large-cross>
+                  </maki-button>
+                  <maki-button on-click="_closeEditOptionsDialog">
+                    Sluiten
+                  </maki-button>
+                </div>
+
+                <div class="EditOptionsDialogCloseButton" on-click="_closeEditOptionsDialog">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+    <!-- Option edit dialog -->
+
+    <!-- Document edit dialog -->
+    <dom-if if="[[editDocumentDialogOpen]]">
+      <template>
+        <div class="PopUpWrapper">
+          <div class="PopUpBackdrop" on-click="_closeEditDocumentDialog"></div>
+          <div class="EditOptionsDialog PopUp">
+            <maki-shaded-paper>
+              <div class="EditOptionsDialogContent">
+                <div class="EditOptionsDialogHeader">Item bewerken</div>
+
+                <div class="EditOptionsDialogLabel">Waarde</div>
+                <maki-input elevation="0" stroke="1" input-callback="[[_changeDocumentValue(editDocumentDialog)]]" value="[[_getDocumentTitle(journey, editDocumentDialog)]]" placeholder="Naamloos item"></maki-input>
+
+                <div class="EditOptionsDialogButtons">
+                  <maki-button white text-color-highlight heading="Item verwijderen" on-click="[[_deleteDocument(editDocumentDialog)]]">
+                    <maki-icon-large-cross></maki-icon-large-cross>
+                  </maki-button>
+                  <maki-button on-click="_closeEditDocumentDialog">
+                    Sluiten
+                  </maki-button>
+                </div>
+
+                <div class="EditOptionsDialogCloseButton" on-click="_closeEditDocumentDialog">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+    <!-- Document edit dialog -->
+
+    <!-- Step edit dialog -->
+    <dom-if if="[[editStepDialogOpen]]">
+      <template>
+        <div class="PopUpWrapper">
+          <div class="PopUpBackdrop" on-click="_closeEditStepDialog"></div>
+          <div class="EditOptionsDialog PopUp">
+            <maki-shaded-paper>
+              <div class="EditOptionsDialogContent">
+                <div class="EditOptionsDialogHeader">Item bewerken</div>
+
+                <div class="EditOptionsDialogLabel">Waarde</div>
+                <maki-input elevation="0" stroke="1" input-callback="[[_changeStepValue(editStepDialog)]]" value="[[_getStepTitle(journey, editStepDialog)]]" placeholder="Naamloos item"></maki-input>
+
+                <div class="EditOptionsDialogButtons">
+                  <maki-button white text-color-highlight heading="Item verwijderen" on-click="[[_deleteStep(editStepDialog)]]">
+                    <maki-icon-large-cross></maki-icon-large-cross>
+                  </maki-button>
+                  <maki-button on-click="_closeEditStepDialog">
+                    Sluiten
+                  </maki-button>
+                </div>
+
+                <div class="EditOptionsDialogCloseButton" on-click="_closeEditStepDialog">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+    <!-- Step edit dialog -->
+
+    <!-- I just want to say I'm sorry. If Polymer had a switch injector for elements this would have been pretty. -->
+    <dom-if if="[[modulePickerOpen]]">
+      <template>
+        <div class="PopUpWrapper">
+          <div class="PopUpBackdrop" on-click="_toggleModulesOpen"></div>
+          <div class$="ModulesSelector PopUp[[_modulePopUpStyle(modulePickerSelected)]]">
+            <maki-shaded-paper>
+              <div class="ModulesSelectorInner">
+                <div class="ModulesSelectorInnerHeading">
+                  Modules
+                </div>
+                <div class="ModulesSelectorInnerInputs">
+                  <maki-input elevation="0" stroke="1" placeholder="Zoeken..."></maki-input>
+                </div>
+                <div class="ModulesSelectorInnerSubHeading">
+                  Selecteer een module
+                </div>
+                <div class="ModulesSelectorModulesContainer">
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Accepteren" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-agree></mad-asset-choice-agree>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="agree"></div>
+                  </div>
+                  <!-- <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Datumkiezer" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-calendar></mad-asset-choice-calendar>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="calendar"></div>
+                  </div> -->
+                  <!-- <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Documenten" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-documents></mad-asset-choice-documents>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="documents"></div>
+                  </div> -->
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Einde klantvraag" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-end></mad-asset-choice-end>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="end"></div>
+                  </div>
+                  <!-- <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Fotos" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-photos></mad-asset-choice-photos>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="photos"></div>
+                  </div> -->
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Keuze" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-single></mad-asset-choice-single>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="single"></div>
+                  </div>
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Keuzerondjes" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-radio-buttons></mad-asset-choice-radio-buttons>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="radioButtons"></div>
+                  </div>
+                  <!-- <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Locatie" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-location></mad-asset-choice-location>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="location"></div>
+                  </div> -->
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Meerdere tekstvelden" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-multiple-text></mad-asset-choice-multiple-text>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="multipleText"></div>
+                  </div>
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Meerkeuze" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-multiple></mad-asset-choice-multiple>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="multiple"></div>
+                  </div>
+                  <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Tekstveld" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-text></mad-asset-choice-text>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="text"></div>
+                  </div>
+                  <!-- <div class="ModulesSelectorModule">
+                    <maki-card label="Module" heading="Videokeuze" elevation="3" top-separator="" stroke="1" padding="19">
+                      <div slot="top">
+                        <mad-paper-asset-choice-wrapper>
+                          <mad-asset-choice-video></mad-asset-choice-video>
+                        </mad-paper-asset-choice-wrapper>
+                      </div>
+                    </maki-card>
+                    <div class="ClickProvider" on-click="_selectModule" data-module-name="video"></div>
+                  </div> -->
+                </div>
+                <div class="InfoEditorCloseButton" on-click="_toggleModulesOpen">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+          <div class$="SelectedModuleInformation PopUp[[_modulePopUpStyle(modulePickerSelected)]]">
+            <maki-shaded-paper>
+              <div class="ModulesSelectorInner">
+                <div class="BackButton" on-click="_backToModules">
+                  Terug naar modules
+                  <div class="BackButtonIconContainer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14">
+                        <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <path d="M17 7H1"/>
+                            <path d="M7 13L1 7l6-6"/>
+                        </g>
+                    </svg>
+                  </div>
+                </div>
+                <div class="ModulesSelectorInnerHeading">
+                  [[_titleSwitch(modulePickerDebouncedSelected)]]
+                </div>
+                <div class="ModulesTeeBar">
+                  <div class="ModulesTeeBarLeft">
+                    <div class="ModulesTeeTitle">Voorbeeld</div>
+                    <mad-paper-asset-choice-wrapper>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'agree')]]">
+                        <template>
+                          <mad-asset-choice-agree></mad-asset-choice-agree>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'calendar')]]">
+                        <template>
+                          <mad-asset-choice-calendar></mad-asset-choice-calendar>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'documents')]]">
+                        <template>
+                          <mad-asset-choice-documents></mad-asset-choice-documents>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'end')]]">
+                        <template>
+                          <mad-asset-choice-end></mad-asset-choice-end>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'location')]]">
+                        <template>
+                          <mad-asset-choice-location></mad-asset-choice-location>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'multiple')]]">
+                        <template>
+                          <mad-asset-choice-multiple></mad-asset-choice-multiple>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'multipleText')]]">
+                        <template>
+                          <mad-asset-choice-multiple-text></mad-asset-choice-multiple-text>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'photos')]]">
+                        <template>
+                          <mad-asset-choice-photos></mad-asset-choice-photos>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'radioButtons')]]">
+                        <template>
+                          <mad-asset-choice-radio-buttons></mad-asset-choice-radio-buttons>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'single')]]">
+                        <template>
+                          <mad-asset-choice-single></mad-asset-choice-single>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'text')]]">
+                        <template>
+                          <mad-asset-choice-text></mad-asset-choice-text>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_selectMatches(modulePickerDebouncedSelected, 'video')]]">
+                        <template>
+                          <mad-asset-choice-video></mad-asset-choice-video>
+                        </template>
+                      </dom-if>
+                    </mad-paper-asset-choice-wrapper>
+                  </div>
+                  <div class="ModulesTeeBarRight">
+                    <div class="ModulesTeeTitle">Uitleg</div>
+                    <dom-repeat items="[[_descriptionSwitch(modulePickerDebouncedSelected)]]">
+                      <template>
+                        <div class="ModulesTeeDescription">
+                          [[item]]
+                        </div>
+                      </template>
+                    </dom-repeat>
+                  </div>
+                </div>
+                <div class="SelectModuleButtonContainer">
+                  <maki-button highlight on-click="_saveQuestionType">
+                    Module kiezen
+                  </maki-button>
+                </div>
+                <div class="InfoEditorCloseButton" on-click="_toggleModulesOpen">
+                  <maki-icon-large-cross></maki-icon-large-cross>
+                </div>
+              </div>
+            </maki-shaded-paper>
+          </div>
+        </div>
+      </template>
+    </dom-if>
+  </div>
+</mad-main>

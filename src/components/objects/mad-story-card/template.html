@@ -1,0 +1,18 @@
+<div on-click="_clickHandler" class="StoryCard">
+  <maki-card padding-override="10px 15px 15px 25px" heading="[[heading]]" label="[[label]]"></maki-card>
+  <div class="Number">[[number]]</div>
+  <dom-if if=[[locked]]>
+    <template>
+      <div class="CardLockIconContainer">
+        <mad-icon-lock></mad-icon-lock>
+      </div>
+    </template>
+  </dom-if>
+  <dom-if if=[[warn]]>
+    <template>
+      <div class="CardWarnIconContainer">
+        <mad-icon-warn></mad-icon-warn>
+      </div>
+    </template>
+  </dom-if>
+</div>

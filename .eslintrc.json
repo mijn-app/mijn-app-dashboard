@@ -1,0 +1,40 @@
+{
+  "extends": ["eslint:recommended", "google"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "plugins": ["html"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
+    "no-var": "off",
+    "require-jsdoc": "off",
+    "no-unused-vars": [
+      1,
+      {
+        "vars": "all",
+        "args": "after-used",
+        "varsIgnorePattern": "objectToOmit"
+      }
+    ],
+    "no-undef": [1, { "typeof": true }],
+    "max-len": [2, 80, 4],
+    "object-curly-spacing": [2, "always"],
+    "indent": ["error", 2, { "SwitchCase": 1 }]
+  },
+  "settings": {
+    "html/html-extensions": [".html", ".we"]
+  },
+  "globals": {
+    "Polymer": true
+  }
+}

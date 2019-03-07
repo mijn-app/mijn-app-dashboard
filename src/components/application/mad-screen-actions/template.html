@@ -1,0 +1,32 @@
+<mad-main heading="Acties" sub-heading="n acties">
+  <div slot="tabs" style="opacity: 0.5;">
+    <!-- Tabs here -->
+    <maki-tab-button selected>Actief</maki-tab-button>
+    <maki-tab-button>Archief</maki-tab-button>
+  </div>
+  <div slot="buttons">
+    <!-- Buttons here -->
+    <maki-button style="opacity: 0.5;" heading="Zoeken..." white>
+      <maki-icon-search></maki-icon-search>
+    </maki-button>
+  </div>
+  <div slot="content">
+    <div class="Actions">
+      <div class="ActionHeader" style="grid-column-start: 1; grid-column-end: 2;">ID</div>
+      <div class="ActionHeader" style="grid-column-start: 2; grid-column-end: 3;">Persoon</div>
+      <div class="ActionHeader" style="grid-column-start: 3; grid-column-end: 4;">Datum</div>
+      <div class="ActionHeader" style="grid-column-start: 4; grid-column-end: 5;">Deadline</div>
+
+      <dom-repeat items="[[_getActions(orders)]]">
+        <template>
+          <div class="ActionLeft" on-click="_goOrder" data-order="[[index]]">[[_id(item.id)]]</div>
+          <div class="Action Action1" on-click="_goOrder" data-order="[[index]]">[[_userName(item)]]</div>
+          <div class="Action Action2" on-click="_goOrder" data-order="[[index]]">[[_toDate(item.created_at)]]</div>
+          <div class="Action Action3" on-click="_goOrder" data-order="[[index]]">[[_toDate(item.created_at, 'add')]]</div>
+          <div class="Action Action4" on-click="_goOrder" data-order="[[index]]"></div>
+          <div class="ActionRight" on-click="_goOrder" data-order="[[index]]"></div>
+        </template>
+      </dom-repeat>
+    </div>
+  </div>
+</mad-main>

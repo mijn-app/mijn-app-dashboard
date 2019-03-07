@@ -1,0 +1,46 @@
+<maki-shaded-paper
+  accent-disabled="[[accentDisabled]]"
+  accent-error="[[accentError]]"
+  accent-primary="[[accentPrimary]]"
+  accent-secondary="[[accentSecondary]]"
+  disabled="[[disabled]]"
+  error="[[error]]"
+  fill="[[fill]]"
+  icon-disabled="[[iconDisabled]]"
+  icon-error="[[iconError]]"
+  icon-primary="[[iconPrimary]]"
+  icon-secondary="[[iconSecondary]]"
+  primary="[[primary]]"
+  secondary="[[secondary]]"
+  transparent="[[transparent]]"
+  elevation="[[elevation]]"
+  rounding="[[rounding]]"
+  stroke="[[stroke]]"
+>
+  <div class="Wrapper">
+    <div class$="Icon[[_hasIconLeft(iconLeft)]][[_hasIconRight(iconRight)]]">
+      <slot></slot>
+    </div>
+    <div class$="DropDown[[_stylePlaceholder(selected)]]" on-click="_openDropDown">
+      [[_selectedName(selected, items, names, placeholder)]]
+    </div>
+    <div class$="Highlight[[_isFocussed(focussed)]]">
+      <div class="HighlightAlways"></div>
+      <div class="HighlightHover"></div>
+    </div>
+    <dom-if if="[[open]]">
+      <template>
+        <div class="DropDownOpenBackDrop" on-click="_closeDropDown"></div>
+        <div class="DropDownList">
+          <dom-repeat items="[[items]]">
+            <template>
+              <div class$="DropDownOption[[_isFunction(item)]]" on-click="_setOption" data-item="[[item]]">
+                [[_itemToName(item, items, names)]]
+              </div>
+            </template>
+          </dom-repeat>
+        </div>
+      </template>
+    </dom-if>
+  </div>
+</maki-shaded-paper>

@@ -1,0 +1,25 @@
+<maki-theme-provider theme="[[theme]]">
+  <div class="App">
+    <div class="SidebarContainer">
+      <mad-sidebar heading="Mijn Portaal">
+        <div slot="tabs">
+          <div style="opacity: 0.5;"><mad-sidebar-item selected="[[_selectedPage(page, 'dashboard')]]" data-page="dashboard" on-click="_selectPage">Dashboard</mad-sidebar-item></div>
+          <mad-sidebar-item selected="[[_selectedPage(page, 'actions')]]" data-page="actions" on-click="_selectPage">Acties</mad-sidebar-item>
+          <div style="opacity: 0.5;"><mad-sidebar-item selected="[[_selectedPage(page, 'messages')]]" data-page="messages" on-click="_selectPage" notifications="19">Berichten</mad-sidebar-item></div>
+          <mad-sidebar-item selected="[[_selectedPage(page, 'journeys')]]" data-page="journeys" on-click="_selectPage">Klantvragen</mad-sidebar-item>
+          <div style="opacity: 0.5;"><mad-sidebar-item selected="[[_selectedPage(page, 'apis')]]" data-page="apis" on-click="_selectPage">APIs</mad-sidebar-item></div>
+        </div>
+      </mad-sidebar>
+    </div>
+    <div class="MainContainer">
+      <iron-pages selected="[[page]]" attr-for-selected="page" fallback-selection="view404">
+        <mad-screen-action page="action"></mad-screen-action>
+        <mad-screen-actions page="actions"></mad-screen-actions>
+        <mad-screen-home page="dashboard"></mad-screen-home>
+        <mad-screen-journey page="journey"></mad-screen-journey>
+        <mad-screen-journeys page="journeys"></mad-screen-journeys>
+        <mad-screen-playback page="playback"></mad-screen-playback>
+      </iron-pages>
+    </div>
+  </div>
+</maki-theme-provider>

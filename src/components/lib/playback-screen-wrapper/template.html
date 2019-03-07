@@ -1,0 +1,23 @@
+<div class="Wrapper">
+  <div class="ScrollContainer">
+    <div class="Scroller">
+      <div class="Back">Stoppen</div>
+      <div class="Title">[[_title(question)]]</div>
+      <div class="Subtitle">[[_subtitle(question)]]</div>
+      <slot></slot>
+    </div>
+  </div>
+  <div class="ButtonContainer">
+    <div class="PrevButton" on-click="_prev">Vorige</div>
+    <dom-if if="[[_showNext(noNext, disabled, skipCallback)]]">
+      <template>
+        <maki-button class="NextButton" disabled="[[disabled]]" set-color-highlight="white" text-color-main highlight stroke="0" size="56" font-size="18" on-click="[[_next(nextCallback, disabled)]]">Volgende</maki-button>
+      </template>
+    </dom-if>
+    <dom-if if="[[_showSkip(noNext, disabled, skipCallback)]]">
+      <template>
+        <maki-button class="SkipButton" set-color-main="#ffffff" stroke="1" text-color-main stroke="0" size="56" font-size="18" on-click="[[_skip(skipCallback)]]">Overslaan</maki-button>
+      </template>
+    </dom-if>
+  </div>
+</div>

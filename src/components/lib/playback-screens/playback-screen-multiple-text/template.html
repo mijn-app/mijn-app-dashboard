@@ -1,0 +1,9 @@
+<playback-screen-wrapper next-callback="[[_nextCallback(question)]]" skip-callback="[[_skipCallback(question)]]" disabled="[[_isDisabled(order)]]">
+  <dom-repeat items="[[_items(question)]]">
+    <template>
+      <div class="Item">
+        <maki-input elevation="0" rounding="0" fill secondary placeholder="[[_itemTitle(item.title)]]" value="[[_getValue(order, index)]]" input-callback="[[_inputCallback(question, index, order)]]"></maki-input>
+      </div>
+    </template>
+  </dom-repeat>
+</playback-screen-wrapper>

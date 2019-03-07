@@ -1,0 +1,143 @@
+.Button {
+  float: left;
+
+  --icon-color: var(--main-color);
+
+  display: inline-block;
+  margin-left: 15px;
+  font-family: 'HK Grotesk', sans-serif;
+  color: var(--main-color);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  border: solid 1px var(--main-color);
+}
+:host(:first-child) .Button {
+  margin-left: 0 !important;
+}
+
+.Button .Inner {
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.1px;
+}
+.Button:hover .Inner {
+  background-color: rgba(191, 191, 191, 0.18);
+}
+.Button.highlight:hover .Inner {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+.Button.disabled:hover .Inner {
+  background-color: rgba(191, 191, 191, 0);
+}
+.Button.noBorder {
+  border: 0;
+}
+.Button.italic .Inner {
+  font-style: italic;
+}
+.Button.small .HeadingAsProp {
+  position: absolute;
+  color: white;
+  background-color: var(--main-color);
+  top: 150%;
+  left: 0;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 19px;
+  padding: 3px 15px;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+.Button.small.disabled .HeadingAsProp {
+  background-color: var(--disabled-color);
+}
+.Button.bubbleColorMain .HeadingAsProp {
+  background-color: var(--main-color);
+}
+.Button.bubbleColorDisabled .HeadingAsProp {
+  background-color: var(--disabled-color);
+}
+.Button.bubbleColorHighlight .HeadingAsProp {
+  background-color: var(--highlight-color);
+}
+.HeadingAsProp.After {
+  width: 0;
+  height: 0;
+}
+.Button.small .HeadingAsProp .After {
+  content: '';
+  position: absolute;
+  left: calc(50% - 5px);
+  top: -5px;
+  width: 10px;
+  height: 5px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.Button.highlight {
+  background-color: var(--highlight-color);
+  border-color: var(--highlight-color);
+  color: white;
+
+  --icon-color: white;
+}
+.Button.white {
+  background-color: white;
+  border-color: var(--disabled-color);
+  color: var(--main-color);
+
+  --icon-color: var(--highlight-color);
+}
+.Button.white:hover {
+  border-color: var(--main-color);
+}
+.Button.disabled:hover {
+  border-color: var(--disabled-color);
+}
+.Button.disabled {
+  cursor: default;
+  background-color: rgba(127, 127, 127, 0);
+  border-color: var(--disabled-color);
+  color: var(--disabled-color);
+
+  --icon-color: var(--disabled-color);
+}
+.Button.highlight.disabled {
+  background-color: var(--disabled-color);
+  color: white;
+
+  --icon-color: white;
+}
+.Button.textColorMain {
+  color: var(--main-color);
+}
+.Button.textColorDisabled {
+  color: var(--disabled-color);
+}
+.Button.textColorHighlight {
+  color: var(--highlight-color);
+}
+.Button.icon .Child {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Button.iconColorMain .Child {
+  --icon-color: var(--main-color);
+}
+.Button.iconColorDisabled .Child {
+  --icon-color: var(--disabled-color);
+}
+.Button.iconColorHighlight .Child {
+  --icon-color: var(--highlight-color);
+}
+.Child ::slotted(svg) {
+  width: 18px;
+  height: 18px;
+  fill: var(--icon-color);
+  stroke: var(--icon-color);
+}

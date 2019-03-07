@@ -1,0 +1,161 @@
+.Editor {
+  width: 100%;
+}
+.Editor.sidePanelOpen {
+  width: calc(100% - 475px);
+  margin-right: 475px;
+}
+.Story {
+  width: 100%;
+  overflow: scroll;
+  padding: 75px 0;
+
+  --grid-template-columns: auto;
+  --grid-template-rows: auto;
+}
+.Cards {
+  display: inline-grid;
+  grid-template-columns: var(--grid-template-columns);
+  grid-template-rows: var(--grid-template-rows);
+}
+.CardWrapper {
+  cursor: pointer;
+
+  --circle-color: var(--palette-primary-main);
+}
+.CardWrapper:hover {
+  --circle-color: var(--palette-secondary-main);
+}
+.Column {
+  float: left;
+  margin: 0 29px;
+}
+.SpecialWrapper {
+  margin: 16px;
+  display: flex;
+  align-items: flex-start;
+}
+.Begin {
+  font-family: var(--typography-fontFamily);
+  font-size: 1.14em;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 16px;
+  letter-spacing: -0.1px;
+  color: var(--palette-primary-contrastText);
+  padding: 10px 14px 10px 13px;
+  margin: 16px 0 0 0;
+  opacity: 0.3;
+  background-color: #19224C;
+  border-radius: 2px;
+}
+.End {
+  font-family: var(--typography-fontFamily);
+  font-size: 1.14em;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 16px;
+  letter-spacing: -0.1px;
+  color: var(--palette-primary-contrastText);
+  padding: 10px 14px 10px 13px;
+  margin: 16px 0 0 0;
+  opacity: 0.3;
+  background-color: #19224C;
+  border-radius: 2px;
+}
+.Add {
+  margin: 14px 0 0 0;
+  float: left;
+}
+.AddMenuBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.AddMenu {
+  background-color: #FFF;
+  filter: drop-shadow(0 5px 9px rgba(0, 0, 0, 0.11));
+  border-radius: 2px;
+  margin-left: 30px;
+  float: left;
+  position: relative;
+}
+.AddMenuTriangle {
+  position: absolute;
+  top: calc(50% - 13px);
+  height: 26px;
+  width: 26px;
+  background-color: white;
+  left: 0;
+  transform: translate(-13px, 0) rotate(45deg);
+  z-index: -1;
+}
+.AddMenuOption,
+.AddMenuOptionDisabled {
+  height: 19px;
+  font-family: var(--typography-fontFamily);
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.1px;
+  color: var(--palette-primary-main);
+  padding: 11px 14px 10px 12px;
+  margin: 0 8px 0 4px;
+  border-top: 1px solid #EFF1F3;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.AddMenuOptionDisabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.AddMenuOption:hover {
+  color: var(--palette-primary-main);
+  opacity: 0.7;
+}
+.AddMenuOptionDisabled:first-child,
+.AddMenuOption:first-child {
+  border: 0;
+}
+
+.LabelItem {
+  font-family: var(--typography-fontFamily);
+  font-size: 1.14em;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 16px;
+  letter-spacing: -0.1px;
+  color: var(--palette-primary-contrastText);
+  padding: 0 14px 0 13px;
+  margin: 0 16px 0 0;
+  opacity: 0.3;
+  background-color: #19224C;
+  grid-column-start: beginlabelcol;
+}
+.LabelItemTop {
+  opacity: 0.3;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  height: 10px;
+  background-color: #19224C;
+  margin: 0 16px 0 0;
+  grid-column-start: beginlabelcol;
+  align-self: end;
+}
+.LabelItemBottom {
+  opacity: 0.3;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  height: 10px;
+  background-color: #19224C;
+  margin: 0 16px 0 0;
+  grid-column-start: beginlabelcol;
+  align-self: start;
+}

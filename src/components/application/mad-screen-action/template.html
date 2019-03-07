@@ -1,0 +1,44 @@
+<mad-main heading="Actiedetails">
+  <div slot="content">
+    <div class="Data">
+      <div class="Left">
+        <div class="Heading">Gegevens</div>
+      </div>
+      <div class="Right">
+        <div class="Heading">Aanvraag</div>
+      </div>
+      <div class="Left">
+        <div class="Key">ID</div>
+        <div class="Value">[[_shortId(order.id)]]</div>
+        <div class="Key">Aanvrager</div>
+        <div class="Value">[[_orderPersoon(order)]]</div>
+      </div>
+      <div class="Right">
+        <dom-repeat items="[[_orderItems(order)]]">
+          <template>
+            <dom-if if="[[_isNested(item)]]">
+              <template>
+                <dom-repeat items="[[_makeNested(item)]]" as="sub">
+                  <template>
+                    <div class="RightIn">
+                      <div class="Key">[[_key(sub.keyTitle)]]</div>
+                      <div class="Value">[[sub.valueTitle]]</div>
+                    </div>
+                  </template>
+                </dom-repeat>
+              </template>
+            </dom-if>
+            <dom-if if="[[_isNotNested(item)]]">
+              <template>
+                <div class="RightIn">
+                  <div class="Key">[[item.keyTitle]]</div>
+                  <div class="Value">[[item.valueTitle]]</div>
+                </div>
+              </template>
+            </dom-if>
+          </template>
+        </dom-repeat>
+      </div>
+    </div>
+  </div>
+</mad-main>

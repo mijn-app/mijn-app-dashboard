@@ -1,0 +1,10 @@
+<div class$="Item [[isSelectedClass(selected)]]">
+    <div class="Text">
+      <slot></slot>
+    </div>
+    <dom-if if=[[hasNotifications(notifications)]]>
+      <template>
+        <div class="NotificationBubble">[[notifications]]</div>
+      </tamplate>
+    </dom-if>
+</div>

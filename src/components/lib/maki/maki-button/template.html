@@ -1,0 +1,15 @@
+<div class$="Button[[isHighlight(highlight)]][[isIcon(small, heading)]][[isItalic(italic)]][[isSmall(small)]][[isWhite(white)]][[isDisabled(disabled)]][[colorBooleans(iconColorMain, iconColorDisabled, iconColorHighlight, textColorMain, textColorDisabled, textColorHighlight, bubbleColorMain, bubbleColorDisabled, bubbleColorHighlight)]]" style$="[[getElevation(elevation)]] [[_wrapperSize(size)]]" on-click="clickHandler">
+  <div class="Inner" style$="[[_buttonSize(size, heading)]]">
+    <dom-if if=[[hasHeading(heading)]]>
+      <template>
+        <span class="HeadingAsProp" style$="[[_hoverStyle]]">
+          [[heading]]
+          <span class="After" />
+        </span>
+      </template>
+    </dom-if>
+    <div class="Child" style$="[[_iconSize(size, heading)]]">
+      <slot></slot>
+    </div>
+  </div>
+</div>

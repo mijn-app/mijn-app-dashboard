@@ -1,0 +1,19 @@
+<div class="Wrapper">
+  <div class="ScrollContainer">
+    <div class="Scroller">
+      <div class="Title">Controleer je gegevens</div>
+      <dom-repeat items="[[_getOrderItems(order)]]">
+        <template>
+          <div class="Answer">
+            <div class="AnswerLabel">[[item.key]]</div>
+            <div class="AnswerAnswer">[[item.value]]</div>
+          </div>
+        </template>
+      </dom-repeat>
+    </div>
+  </div>
+  <div class="ButtonContainer">
+    <div class="PrevButton" on-click="_prev">Vorige</div>
+    <maki-button class="NextButton" disabled="[[disabled]]" set-color-highlight="white" text-color-main highlight stroke="0" size="56" font-size="18">Versturen</maki-button>
+  </div>
+</div>

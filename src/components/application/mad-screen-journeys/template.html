@@ -1,0 +1,34 @@
+<mad-main heading="Klantvragen" sub-heading$="[[journeysCount]] klantvragen">
+  <div slot="tabs" style="opacity: 0.5;">
+    <!-- Tabs here -->
+    <maki-tab-button selected>Alle</maki-tab-button>
+    <maki-tab-button>Publiek</maki-tab-button>
+    <maki-tab-button>Archief</maki-tab-button>
+  </div>
+  <div slot="buttons">
+    <!-- Buttons here -->
+    <maki-button style="opacity: 0.5;" heading="Search" white small>
+      <maki-icon-search></maki-icon-search>
+    </maki-button>
+    <maki-button style="opacity: 0.5;">Bekijk bibliotheek</maki-button>
+    <maki-button heading="Nieuwe klantvraag" highlight on-click="_toEditor">
+      <maki-icon-add></maki-icon-add>
+    </maki-button>
+  </div>
+  <div slot="content">
+    <div class="Card" on-click="_clickJourney">
+      <maki-card heading="Ik heb een goed idee" label="Klantvraag" separator on-click="_clickJourneyA">
+        <div>
+          4 vragen
+        </div>
+      </maki-card>
+    </div>
+    <div class="Card" on-click="_clickJourney">
+      <maki-card heading="Ik ga verhuizen" label="Klantvraag" separator on-click="_clickJourneyB">
+        <div>
+          4 vragen
+        </div>
+      </maki-card>
+    </div>
+  </div>
+</mad-main>

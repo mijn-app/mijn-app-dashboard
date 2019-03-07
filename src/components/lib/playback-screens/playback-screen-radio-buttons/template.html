@@ -1,0 +1,12 @@
+<playback-screen-wrapper next-callback="[[_nextCallback(question, selected)]]" skip-callback="[[_skipCallback(question)]]" disabled="[[_isDisabled(order, question, selected)]]">
+  <div class="Options">
+    <dom-repeat items="[[_optionNames(question)]]">
+      <template>
+        <div class="Option" data-index="[[index]]" on-click="_optionClick">
+          [[item]]
+          <div class$="Circle[[_isSelected(index, selected)]]"></div>
+        </div>
+      </template>
+    </dom-repeat>
+  </div>
+</playback-screen-wrapper>

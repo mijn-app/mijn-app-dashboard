@@ -1,0 +1,71 @@
+<div class$="Editor[[_sidePanelOpenStyle(sidePanelOpen)]]">
+  <div class="Story">
+    <div class="Cards" style="[[styleLine]]">
+      <dom-repeat id="ArrowRepeater" items="{{_arrowArray(drawArrowHack)}}">
+        <template>
+          <mad-arrow-part
+            point="[[item.point]]"
+            to-down="[[item.toDown]]"
+            to-up="[[item.toUp]]"
+            from-down="[[item.fromDown]]"
+            from-up="[[item.fromUp]]"
+            horizontal="[[item.horizontal]]"
+            vertical="[[item.vertical]]"
+            style="[[item.style]]"
+          ></mad-arrow-part>
+        </template>
+      </dom-repeat>
+      <dom-repeat id="CardRepeater" items="{{_objAsArray(questions)}}">
+        <template>
+          <div class="CardWrapper" style="[[_cardStyleById(item.id)]]">
+            <mad-story-card id="[[_cardDomIdById(item.id)]]" callback="[[_editQuestion]]" question="[[item.id]]" number="[[_cardNumberById(item.id)]]" label="[[_cardLabelById(item.id)]]" heading="[[_cardHeadingById(item.id)]]" locked="[[item.locked]]"/>
+          </div>
+        </template>
+      </dom-repeat>
+      <dom-repeat id="SpecialRepeater" items="{{_specialObjsAsArray(questions)}}">
+        <template>
+          <div class="SpecialWrapper" style="[[_specialStyleById(item.id)]]">
+            <dom-if if="[[_specialMatch(item.special, 'BEGIN')]]">
+              <template>
+                <div class="Begin">Begin</div>
+              </template>
+            </dom-if>
+            <dom-if if="[[_specialMatch(item.special, 'END')]]">
+              <template>
+                <div class="End">Einde</div>
+              </template>
+            </dom-if>
+            <dom-if if="[[_specialMatch(item.special, 'ADD')]]">
+              <template>
+                <div class="Add">
+                  <maki-button elevation="6" heading="Toevoegen" highlight round small size="40" on-click="[[_clickAdd(item.target)]]">
+                    <maki-icon-large-add></maki-icon-large-add>
+                  </maki-button>
+                </div>
+                <dom-if if="[[_hasOpenMenu(item.target, withMenu)]]">
+                  <template>
+                    <div class="AddMenuBackdrop" on-click="_clearWithMenu"></div>
+                    <div class="AddMenu">
+                      <div class="AddMenuOption" on-click="_addNewModule">Module kiezen</div>
+                      <dom-if if="[[_isMatch(item.target, 'START')]]">
+                        <template>
+                          <div class="AddMenuOptionDisabled">Einde klantvraag</div>
+                        </template>
+                      </dom-if>
+                      <dom-if if="[[_isNotMatch(item.target, 'START')]]">
+                        <template>
+                          <div class="AddMenuOption" on-click="_addEndWithMenu">Einde klantvraag</div>
+                        </template>
+                      </dom-if>
+                      <div class="AddMenuTriangle"></div>
+                    </div>
+                  </template>
+                </dom-if>
+              </template>
+            </dom-if>
+          </div>
+        </template>
+      </dom-repeat>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<playback-screen-wrapper next-callback="[[_nextCallback(question)]]" skip-callback="[[_skipCallback(question)]]" disabled="[[_isDisabled(order)]]">
+  <div class="Options">
+    <div class="Option" on-click="_optionClick">
+      Ja
+      <div class$="Circle[[_isSelected(order)]]"></div>
+    </div>
+  </div>
+</playback-screen-wrapper>

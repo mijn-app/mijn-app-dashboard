@@ -1,0 +1,9 @@
+<playback-screen-wrapper skip-callback="[[_skipCallback(question)]]" no-next>
+  <div class="Options">
+    <dom-repeat items="[[_optionNames(question)]]">
+      <template>
+        <div class="Option" data-question="[[question]]" data-index="[[index]]" on-click="_optionClick">[[item]]</div>
+      </template>
+    </dom-repeat>
+  </div>
+</playback-screen-wrapper>

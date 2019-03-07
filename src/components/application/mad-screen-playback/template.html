@@ -1,0 +1,28 @@
+<mad-main heading="Klantvraag afspelen">
+  <div slot="content" class="Wrapper">
+    <div class="PhoneContainer">
+      <div class="Phone">
+        <div class="Screen">
+          <iron-pages class="ScreensContainer" selected="[[screen]]" attr-for-selected="screen" fallback-selection="error">
+            <playback-screen-agree screen="agree"></playback-screen-agree>
+            <playback-screen-calendar screen="calendar"></playback-screen-calendar>
+            <playback-screen-end screen="end"></playback-screen-end>
+            <playback-screen-error screen="error"></playback-screen-error>
+            <playback-screen-multiple screen="multiple"></playback-screen-multiple>
+            <playback-screen-multiple-text screen="multipleText"></playback-screen-multiple-text>
+            <playback-screen-radio-buttons screen="radioButtons"></playback-screen-radio-buttons>
+            <playback-screen-single screen="single"></playback-screen-single>
+            <playback-screen-start screen="start"></playback-screen-start>
+            <playback-screen-text screen="text"></playback-screen-text>
+            <playback-screen-video screen="video"></playback-screen-video>
+          </iron-pages>
+        </div>
+      </div>
+      <div class="ButtonWrapper">
+        <maki-button white heading="Terug naar klantvraag bewerken" on-click="[[_backToEditor]]">
+          <maki-icon-left-arrow></maki-icon-left-arrow>
+        </maki-button>
+      </div>
+    </div>
+  </div>
+</mad-main>

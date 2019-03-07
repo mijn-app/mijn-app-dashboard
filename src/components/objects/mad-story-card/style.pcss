@@ -1,0 +1,41 @@
+:host {
+  margin: 16px;
+  float: left;
+}
+.StoryCard {
+  width: 171px;
+  position: relative;
+  padding-left: 14px;
+  float: left;
+}
+.Number {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-family: var(--typography-fontFamily);
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: -0.1px;
+  text-align: center;
+  color: var(--palette-primary-contrastText);
+  background-color: var(--circle-color);
+  border-radius: 14px;
+  position: absolute;
+  top: 19px;
+  left: 0;
+  box-shadow: var(--shadows-7);
+}
+.CardLockIconContainer {
+  --icon-color: var(--palette-secondary-main);
+
+  position: absolute;
+  top: 7px;
+  right: 9px;
+}
+.CardWarnIconContainer {
+  --icon-color: var(--palette-error-main);
+
+  position: absolute;
+  top: 4px;
+  right: 9px;
+}

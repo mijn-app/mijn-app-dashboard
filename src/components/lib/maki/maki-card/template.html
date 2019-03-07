@@ -1,0 +1,36 @@
+<maki-paper elevation="[[elevation]]" rounding="[[rounding]]" stroke="[[stroke]]">
+  <div class="Content" style="[[getPadding(padding, paddingOverride)]]">
+    <slot name="top"></slot>
+    <dom-if if="[[topSeparator]]">
+      <template>
+        <div class="Separator" />
+      </template>
+    </dom-if>
+    <dom-if if="[[hasHeader]]">
+      <template>
+        <div class="Header">
+          <dom-if if="[[hasLabel]]">
+            <template>
+              <div class="Label">
+                [[label]]
+              </div>
+            </template>
+          </dom-if>
+          <dom-if if="[[hasHeading]]">
+            <template>
+              <div class="Heading">
+                [[heading]]
+              </div>
+            </template>
+          </dom-if>
+        </div>
+      </temlate>
+    </dom-if>
+    <dom-if if="[[separator]]">
+      <template>
+        <div class="Separator" />
+      </template>
+    </dom-if>
+    <slot></slot>
+  </div>
+</maki-paper>
